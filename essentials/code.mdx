@@ -1,0 +1,106 @@
+---
+title: 'Code Blocks'
+description: 'Display code with syntax highlighting and interactive features'
+---
+
+## Basic Code Blocks
+
+Use triple backticks with a language identifier for syntax highlighting:
+
+```javascript
+const speckit = {
+  name: "Speckit",
+  version: "1.0.0",
+  features: ["documentation", "api", "analytics"]
+};
+
+console.log(speckit);
+```
+
+```python
+def hello_speckit():
+    """A simple function to demonstrate Python syntax highlighting."""
+    message = "Hello from Speckit!"
+    print(message)
+    return message
+
+hello_speckit()
+```
+
+```bash
+# Install Speckit CLI
+npm install -g speckit-cli
+
+# Initialize a new project
+speckit init my-project
+
+# Start development server
+speckit dev
+```
+
+## Code Groups
+
+Use `CodeGroup` to display multiple code examples:
+
+<CodeGroup>
+```bash npm
+npm install speckit
+```
+
+```bash yarn
+yarn add speckit
+```
+
+```bash pnpm
+pnpm add speckit
+```
+</CodeGroup>
+
+## Inline Code
+
+Use single backticks for `inline code` within sentences.
+
+## Code with Titles
+
+```javascript title="config.js"
+module.exports = {
+  apiKey: process.env.SPECKIT_API_KEY,
+  baseUrl: "https://api.speckit.dev",
+  timeout: 5000
+};
+```
+
+## Interactive Code Examples
+
+<CodeGroup>
+```javascript JavaScript
+// Initialize Speckit client
+import { Speckit } from 'speckit-sdk';
+
+const client = new Speckit({
+  apiKey: 'your-api-key'
+});
+
+// Make API call
+const response = await client.getData();
+console.log(response);
+```
+
+```python Python
+# Initialize Speckit client
+from speckit import Speckit
+
+client = Speckit(api_key='your-api-key')
+
+# Make API call
+response = client.get_data()
+print(response)
+```
+
+```curl cURL
+curl -X GET \
+  https://api.speckit.dev/data \
+  -H 'Authorization: Bearer your-api-key' \
+  -H 'Content-Type: application/json'
+```
+</CodeGroup>

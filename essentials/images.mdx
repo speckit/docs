@@ -1,0 +1,78 @@
+---
+title: 'Images'
+description: 'Learn how to add and optimize images in your documentation'
+---
+
+## Basic Images
+
+Add images using standard Markdown syntax:
+
+```markdown
+![Alt text](path/to/image.png)
+```
+
+## Image Components
+
+Use Mintlify's `Frame` component for better image presentation:
+
+<Frame>
+  <img src="https://via.placeholder.com/600x300" alt="Example image" />
+</Frame>
+
+## Responsive Images
+
+Images automatically adapt to different screen sizes:
+
+<Frame caption="This image scales responsively">
+  <img src="https://via.placeholder.com/800x400" alt="Responsive image example" />
+</Frame>
+
+## Dark/Light Mode Images
+
+Display different images for dark and light themes:
+
+<img
+  className="block dark:hidden"
+  src="https://via.placeholder.com/400x200/ffffff/000000?text=Light+Mode"
+  alt="Light mode image"
+/>
+<img
+  className="hidden dark:block"
+  src="https://via.placeholder.com/400x200/000000/ffffff?text=Dark+Mode"
+  alt="Dark mode image"
+/>
+
+## Image Optimization Tips
+
+<Tip>
+  For best performance, use optimized image formats like WebP when possible.
+</Tip>
+
+<Note>
+  Store images in the `/images` directory of your documentation repository.
+</Note>
+
+## Image Galleries
+
+Create image galleries using card groups:
+
+<CardGroup cols={2}>
+  <Card>
+    <Frame>
+      <img src="https://via.placeholder.com/300x200" alt="Gallery image 1" />
+    </Frame>
+  </Card>
+  <Card>
+    <Frame>
+      <img src="https://via.placeholder.com/300x200" alt="Gallery image 2" />
+    </Frame>
+  </Card>
+</CardGroup>
+
+## Screenshots
+
+For UI screenshots, use the Frame component with a caption:
+
+<Frame caption="Speckit Dashboard Overview">
+  <img src="https://via.placeholder.com/800x500" alt="Dashboard screenshot" />
+</Frame>

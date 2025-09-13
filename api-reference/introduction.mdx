@@ -1,0 +1,126 @@
+---
+title: 'API Reference'
+description: 'Complete reference for the Speckit API'
+---
+
+## Welcome to Speckit API
+
+The Speckit API provides programmatic access to all Speckit features. Our REST API is designed to be simple, predictable, and easy to integrate with your applications.
+
+## Base URL
+
+All API requests should be made to:
+
+```
+https://api.speckit.dev/v1
+```
+
+## Authentication
+
+The Speckit API uses API keys for authentication. Include your API key in the Authorization header:
+
+```bash
+Authorization: Bearer your-api-key
+```
+
+<Warning>
+  Keep your API keys secure and never expose them in client-side code.
+</Warning>
+
+## Rate Limits
+
+API requests are rate limited to ensure fair usage:
+
+- **Free tier**: 1,000 requests per hour
+- **Pro tier**: 10,000 requests per hour  
+- **Enterprise**: Custom limits
+
+Rate limit headers are included in all responses:
+
+```
+X-RateLimit-Limit: 1000
+X-RateLimit-Remaining: 999
+X-RateLimit-Reset: 1640995200
+```
+
+## Response Format
+
+All API responses are returned in JSON format:
+
+```json
+{
+  "success": true,
+  "data": {
+    // Response data
+  },
+  "meta": {
+    "timestamp": "2023-12-01T12:00:00Z",
+    "version": "1.0.0"
+  }
+}
+```
+
+## Error Handling
+
+Errors are returned with appropriate HTTP status codes and error details:
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "INVALID_REQUEST",
+    "message": "The request is missing required parameters",
+    "details": {
+      "missing_fields": ["name", "email"]
+    }
+  }
+}
+```
+
+## Common Status Codes
+
+| Code | Description |
+|------|-------------|
+| 200  | Success |
+| 201  | Created |
+| 400  | Bad Request |
+| 401  | Unauthorized |
+| 403  | Forbidden |
+| 404  | Not Found |
+| 429  | Rate Limited |
+| 500  | Internal Server Error |
+
+## SDKs
+
+We provide official SDKs for popular programming languages:
+
+<CardGroup cols={2}>
+  <Card title="JavaScript/Node.js" icon="js" href="/sdks/javascript">
+    Official JavaScript SDK for browser and Node.js
+  </Card>
+  <Card title="Python" icon="python" href="/sdks/python">
+    Official Python SDK with full API coverage
+  </Card>
+  <Card title="Go" icon="golang" href="/sdks/go">
+    Official Go SDK for high-performance applications
+  </Card>
+  <Card title="PHP" icon="php" href="/sdks/php">
+    Official PHP SDK for web applications
+  </Card>
+</CardGroup>
+
+## Getting Started
+
+Ready to start building? Check out our endpoint examples:
+
+<CardGroup cols={3}>
+  <Card title="GET Request" icon="download" href="/api-reference/endpoint/get">
+    Learn how to retrieve data
+  </Card>
+  <Card title="POST Request" icon="plus" href="/api-reference/endpoint/create">
+    Learn how to create resources
+  </Card>
+  <Card title="DELETE Request" icon="trash" href="/api-reference/endpoint/delete">
+    Learn how to delete resources
+  </Card>
+</CardGroup>

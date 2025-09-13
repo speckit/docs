@@ -1,0 +1,119 @@
+---
+title: 'Settings'
+description: 'Customize your documentation site appearance and behavior'
+---
+
+## Configuration File
+
+All settings are configured in the `mint.json` file at the root of your documentation:
+
+```json
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "Speckit Documentation",
+  "logo": {
+    "dark": "/logo/dark.svg",
+    "light": "/logo/light.svg"
+  },
+  "favicon": "/favicon.svg",
+  "colors": {
+    "primary": "#0D9373",
+    "light": "#07C983",
+    "dark": "#0D9373"
+  }
+}
+```
+
+## Branding
+
+### Logo
+
+Add your logo files to the `/logo` directory and reference them in `mint.json`:
+
+```json
+"logo": {
+  "dark": "/logo/dark.svg",
+  "light": "/logo/light.svg"
+}
+```
+
+### Colors
+
+Customize your brand colors:
+
+```json
+"colors": {
+  "primary": "#0D9373",
+  "light": "#07C983",
+  "dark": "#0D9373",
+  "anchors": {
+    "from": "#0D9373",
+    "to": "#07C983"
+  }
+}
+```
+
+### Favicon
+
+Set a custom favicon:
+
+```json
+"favicon": "/favicon.svg"
+```
+
+## Navigation
+
+Configure your site navigation structure:
+
+```json
+"navigation": [
+  {
+    "group": "Get Started",
+    "pages": [
+      "introduction",
+      "quickstart"
+    ]
+  },
+  {
+    "group": "API Reference",
+    "pages": [
+      "api-reference/introduction"
+    ]
+  }
+]
+```
+
+## Topbar
+
+Add links and CTA buttons to your topbar:
+
+```json
+"topbarLinks": [
+  {
+    "name": "Support",
+    "url": "mailto:support@speckit.dev"
+  }
+],
+"topbarCtaButton": {
+  "name": "Dashboard",
+  "url": "https://dashboard.speckit.dev"
+}
+```
+
+## Footer
+
+Configure footer social links:
+
+```json
+"footerSocials": {
+  "x": "https://x.com/speckit",
+  "github": "https://github.com/speckit",
+  "linkedin": "https://www.linkedin.com/company/speckit"
+}
+```
+
+## Analytics
+
+<Note>
+  Analytics integration can be configured through the Mintlify dashboard after deployment.
+</Note>

@@ -1,0 +1,83 @@
+---
+title: 'Markdown'
+description: 'Learn how to use Markdown in your documentation'
+---
+
+## Basic Syntax
+
+Mintlify supports all standard Markdown syntax. Here are some examples:
+
+### Headers
+
+```markdown
+# H1
+## H2
+### H3
+#### H4
+##### H5
+###### H6
+```
+
+### Text Formatting
+
+**Bold text** and *italic text* are supported.
+
+You can also use ~~strikethrough~~ text.
+
+### Lists
+
+Unordered lists:
+- Item 1
+- Item 2
+  - Nested item
+  - Another nested item
+
+Ordered lists:
+1. First item
+2. Second item
+3. Third item
+
+### Links and Images
+
+[Link to Speckit](https://speckit.dev)
+
+![Alt text](https://via.placeholder.com/300x200)
+
+### Code
+
+Inline `code` is supported.
+
+```javascript
+// Code blocks with syntax highlighting
+function hello() {
+  console.log("Hello, Speckit!");
+}
+```
+
+### Tables
+
+| Feature | Supported |
+| ------- | --------- |
+| Tables  | ✅        |
+| Lists   | ✅        |
+| Images  | ✅        |
+
+## MDX Components
+
+Mintlify extends Markdown with MDX, allowing you to use React components:
+
+<Note>
+  This is a note component that helps highlight important information.
+</Note>
+
+<Warning>
+  This is a warning component for cautionary information.
+</Warning>
+
+<Tip>
+  This is a tip component for helpful suggestions.
+</Tip>
+
+<Info>
+  This is an info component for general information.
+</Info>

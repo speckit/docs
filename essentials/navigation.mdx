@@ -1,0 +1,141 @@
+---
+title: 'Navigation'
+description: 'Structure and organize your documentation navigation'
+---
+
+## Navigation Structure
+
+The navigation is defined in your `mint.json` file using the `navigation` array:
+
+```json
+"navigation": [
+  {
+    "group": "Get Started",
+    "pages": [
+      "introduction",
+      "quickstart",
+      "development"
+    ]
+  },
+  {
+    "group": "Essentials",
+    "pages": [
+      "essentials/markdown",
+      "essentials/code",
+      "essentials/images"
+    ]
+  }
+]
+```
+
+## Navigation Groups
+
+Group related pages together for better organization:
+
+<AccordionGroup>
+  <Accordion title="Basic Group">
+    ```json
+    {
+      "group": "Getting Started",
+      "pages": ["intro", "setup", "first-steps"]
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Nested Pages">
+    ```json
+    {
+      "group": "Advanced",
+      "pages": [
+        "advanced/configuration",
+        "advanced/customization",
+        "advanced/deployment"
+      ]
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Page Organization
+
+### File Structure
+
+Organize your files to match your navigation:
+
+```
+docs/
+├── mint.json
+├── introduction.mdx
+├── quickstart.mdx
+├── essentials/
+│   ├── markdown.mdx
+│   ├── code.mdx
+│   └── images.mdx
+└── api-reference/
+    ├── introduction.mdx
+    └── endpoint/
+        ├── get.mdx
+        ├── create.mdx
+        └── delete.mdx
+```
+
+### Page Metadata
+
+Each page should include frontmatter with title and description:
+
+```markdown
+---
+title: 'Page Title'
+description: 'Brief description of the page content'
+---
+```
+
+## Tabs
+
+Create tabbed navigation for different sections:
+
+```json
+"tabs": [
+  {
+    "name": "API Reference",
+    "url": "api-reference"
+  },
+  {
+    "name": "SDKs",
+    "url": "sdks"
+  }
+]
+```
+
+## Anchors
+
+Add external links to your navigation:
+
+```json
+"anchors": [
+  {
+    "name": "Documentation",
+    "icon": "book-open-cover",
+    "url": "https://mintlify.com/docs"
+  },
+  {
+    "name": "Community",
+    "icon": "slack",
+    "url": "https://mintlify.com/community"
+  }
+]
+```
+
+## Best Practices
+
+<Tip>
+  Keep navigation groups focused and limit the number of items per group for better usability.
+</Tip>
+
+<Note>
+  Use descriptive group names that clearly indicate the content within each section.
+</Note>
+
+<Warning>
+  Ensure all pages referenced in navigation actually exist to avoid broken links.
+</Warning>
