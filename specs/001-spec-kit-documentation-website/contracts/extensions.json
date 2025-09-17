@@ -1,0 +1,522 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Extensions Contract",
+  "description": "Defines the structure and requirements for SpecKit extensions including CI/CD automation, design visualization, and specification by example",
+  "type": "object",
+  "properties": {
+    "extensionCategories": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ExtensionCategory"
+      }
+    },
+    "integrationPatterns": {
+      "$ref": "#/definitions/IntegrationPatterns"
+    },
+    "validationCriteria": {
+      "$ref": "#/definitions/ValidationCriteria"
+    }
+  },
+  "definitions": {
+    "ExtensionCategory": {
+      "type": "object",
+      "properties": {
+        "categoryId": {
+          "type": "string",
+          "enum": ["cicd-automation", "design-visualization", "specification-by-example"]
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "valueProposition": {
+          "type": "string",
+          "description": "Why this extension enhances SpecKit methodology"
+        },
+        "extensions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Extension"
+          }
+        }
+      },
+      "required": ["categoryId", "name", "description", "valueProposition"]
+    },
+    "Extension": {
+      "type": "object",
+      "properties": {
+        "extensionId": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string",
+          "enum": ["cicd-automation", "design-visualization", "specification-by-example"]
+        },
+        "maturityLevel": {
+          "type": "string",
+          "enum": ["experimental", "beta", "stable", "recommended"],
+          "description": "Extension maturity and recommendation level"
+        },
+        "prerequisites": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": ["knowledge", "tool", "setup", "access"]
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "required": {
+                "type": "boolean",
+                "default": true
+              }
+            }
+          }
+        },
+        "integrationPoints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IntegrationPoint"
+          }
+        },
+        "implementation": {
+          "$ref": "#/definitions/Implementation"
+        },
+        "examples": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ExtensionExample"
+          }
+        },
+        "tooling": {
+          "$ref": "#/definitions/Tooling"
+        },
+        "bestPractices": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["extensionId", "name", "description", "category", "maturityLevel"]
+    },
+    "IntegrationPoint": {
+      "type": "object",
+      "properties": {
+        "phase": {
+          "type": "string",
+          "enum": ["specify", "plan", "tasks", "implementation", "validation", "deployment"]
+        },
+        "description": {
+          "type": "string"
+        },
+        "integrationMethod": {
+          "type": "string",
+          "enum": ["template-modification", "workflow-enhancement", "tooling-addition", "process-extension"]
+        },
+        "impact": {
+          "type": "string",
+          "enum": ["low", "medium", "high"],
+          "description": "Impact on existing workflow"
+        },
+        "automationLevel": {
+          "type": "string",
+          "enum": ["manual", "semi-automated", "fully-automated"]
+        }
+      },
+      "required": ["phase", "description", "integrationMethod"]
+    },
+    "Implementation": {
+      "type": "object",
+      "properties": {
+        "approach": {
+          "type": "string",
+          "description": "High-level implementation approach"
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "stepNumber": {
+                "type": "integer"
+              },
+              "title": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "estimatedDuration": {
+                "type": "integer",
+                "description": "Time in minutes"
+              },
+              "complexity": {
+                "type": "string",
+                "enum": ["beginner", "intermediate", "advanced"]
+              }
+            }
+          }
+        },
+        "configurationFiles": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "filename": {
+                "type": "string"
+              },
+              "purpose": {
+                "type": "string"
+              },
+              "template": {
+                "type": "string",
+                "description": "File content template or reference"
+              }
+            }
+          }
+        }
+      }
+    },
+    "ExtensionExample": {
+      "type": "object",
+      "properties": {
+        "exampleId": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "scenario": {
+          "type": "string",
+          "description": "Use case scenario"
+        },
+        "implementation": {
+          "type": "string",
+          "description": "Step-by-step implementation"
+        },
+        "expectedOutcome": {
+          "type": "string"
+        },
+        "sourceCode": {
+          "type": "string",
+          "format": "uri",
+          "description": "Link to example repository"
+        },
+        "complexity": {
+          "type": "string",
+          "enum": ["simple", "intermediate", "complex"]
+        }
+      },
+      "required": ["exampleId", "title", "description", "scenario"]
+    },
+    "Tooling": {
+      "type": "object",
+      "properties": {
+        "recommended": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Tool"
+          }
+        },
+        "alternatives": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Tool"
+          }
+        },
+        "integrations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "toolName": {
+                "type": "string"
+              },
+              "integrationMethod": {
+                "type": "string"
+              },
+              "benefits": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Tool": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string",
+          "enum": ["ci-cd", "visualization", "testing", "documentation", "automation"]
+        },
+        "cost": {
+          "type": "string",
+          "enum": ["free", "freemium", "paid", "enterprise"]
+        },
+        "complexity": {
+          "type": "string",
+          "enum": ["beginner", "intermediate", "advanced"]
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "pros": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "cons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["name", "description", "category", "cost"]
+    },
+    "IntegrationPatterns": {
+      "type": "object",
+      "properties": {
+        "cicdAutomation": {
+          "type": "object",
+          "properties": {
+            "validationPipeline": {
+              "type": "object",
+              "properties": {
+                "triggers": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": ["push", "pull-request", "schedule", "manual"]
+                  }
+                },
+                "stages": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": ["lint", "validate", "test", "build", "deploy"]
+                  }
+                },
+                "tools": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "deploymentAutomation": {
+              "type": "object",
+              "properties": {
+                "strategy": {
+                  "type": "string",
+                  "enum": ["continuous", "staged", "manual-approval"]
+                },
+                "environments": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": ["development", "staging", "production"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "designVisualization": {
+          "type": "object",
+          "properties": {
+            "diagramTypes": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["architecture", "workflow", "data-flow", "component", "sequence", "state"]
+              }
+            },
+            "generationMethods": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["code-to-diagram", "specification-to-diagram", "manual-creation", "template-based"]
+              }
+            },
+            "integrationPoints": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["specification", "plan", "documentation", "implementation"]
+              }
+            }
+          }
+        },
+        "specificationByExample": {
+          "type": "object",
+          "properties": {
+            "exampleTypes": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["executable", "testable", "interactive", "visual", "narrative"]
+              }
+            },
+            "validationMethods": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["automated-testing", "manual-verification", "continuous-validation", "acceptance-criteria"]
+              }
+            },
+            "documentationIntegration": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["inline-examples", "separate-test-files", "living-documentation", "example-repositories"]
+              }
+            }
+          }
+        }
+      }
+    },
+    "ValidationCriteria": {
+      "type": "object",
+      "properties": {
+        "extensionQuality": {
+          "type": "object",
+          "properties": {
+            "valueAddition": {
+              "type": "boolean",
+              "description": "Extension clearly adds value to core SpecKit methodology"
+            },
+            "integrationClarity": {
+              "type": "boolean",
+              "description": "Integration points are well-defined and documented"
+            },
+            "exampleCompleteness": {
+              "type": "boolean",
+              "description": "Examples are functional and reproducible"
+            },
+            "toolingCurrentness": {
+              "type": "boolean",
+              "description": "Recommended tools are current and accessible"
+            }
+          }
+        },
+        "documentationStandards": {
+          "type": "object",
+          "properties": {
+            "clarity": {
+              "type": "boolean",
+              "description": "Extension documentation is clear and actionable"
+            },
+            "completeness": {
+              "type": "boolean",
+              "description": "All necessary information is provided"
+            },
+            "accuracy": {
+              "type": "boolean",
+              "description": "Information is technically accurate and up-to-date"
+            },
+            "usability": {
+              "type": "boolean",
+              "description": "Users can successfully implement the extension"
+            }
+          }
+        }
+      }
+    }
+  },
+  "example": {
+    "extensionCategories": [
+      {
+        "categoryId": "cicd-automation",
+        "name": "CI/CD Automation",
+        "description": "Automated validation and deployment pipelines for spec-driven projects",
+        "valueProposition": "Ensures specification accuracy and automates deployment workflows, reducing manual errors and increasing development velocity",
+        "extensions": [
+          {
+            "extensionId": "github-actions-validation",
+            "name": "GitHub Actions Validation Pipeline",
+            "description": "Automated validation of specifications, plans, and tasks using GitHub Actions",
+            "category": "cicd-automation",
+            "maturityLevel": "recommended",
+            "prerequisites": [
+              {
+                "type": "access",
+                "name": "GitHub Repository",
+                "description": "Repository with GitHub Actions enabled",
+                "required": true
+              },
+              {
+                "type": "knowledge",
+                "name": "Basic YAML",
+                "description": "Understanding of YAML syntax for workflow configuration",
+                "required": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "categoryId": "design-visualization",
+        "name": "Design Visualization",
+        "description": "Visual representation of specifications and system architecture",
+        "valueProposition": "Enhances understanding and communication through visual documentation that stays synchronized with specifications",
+        "extensions": [
+          {
+            "extensionId": "mermaid-diagrams",
+            "name": "Mermaid Diagram Integration",
+            "description": "Generate architecture and workflow diagrams from specifications",
+            "category": "design-visualization",
+            "maturityLevel": "stable"
+          }
+        ]
+      },
+      {
+        "categoryId": "specification-by-example",
+        "name": "Specification by Example",
+        "description": "Living documentation with executable examples and acceptance criteria",
+        "valueProposition": "Creates living documentation where examples serve as both specification and validation, ensuring accuracy and clarity",
+        "extensions": [
+          {
+            "extensionId": "executable-examples",
+            "name": "Executable Specification Examples",
+            "description": "Embed testable examples within specifications for continuous validation",
+            "category": "specification-by-example",
+            "maturityLevel": "beta"
+          }
+        ]
+      }
+    ]
+  }
+}

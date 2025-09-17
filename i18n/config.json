@@ -1,0 +1,44 @@
+{
+  "defaultLanguage": "en",
+  "supportedLanguages": [
+    {
+      "code": "en",
+      "name": "English",
+      "nativeName": "English",
+      "flag": "🇺🇸",
+      "direction": "ltr"
+    },
+    {
+      "code": "zh",
+      "name": "Chinese",
+      "nativeName": "中文",
+      "flag": "🇨🇳",
+      "direction": "ltr"
+    },
+    {
+      "code": "ja", 
+      "name": "Japanese",
+      "nativeName": "日本語",
+      "flag": "🇯🇵",
+      "direction": "ltr"
+    }
+  ],
+  "fallbackChain": {
+    "zh": ["en"],
+    "ja": ["en"]
+  },
+  "seoKeywords": {
+    "en": {
+      "primary": ["SpecKit", "spec driven development"],
+      "secondary": ["specification", "documentation", "automation", "github"]
+    },
+    "zh": {
+      "primary": ["规范工具包", "SpecKit", "规范驱动开发"],
+      "secondary": ["规范", "文档", "自动化", "github"]
+    },
+    "ja": {
+      "primary": ["仕様キット", "SpecKit", "仕様駆動開発"],
+      "secondary": ["仕様", "ドキュメント", "自動化", "github"]
+    }
+  }
+}

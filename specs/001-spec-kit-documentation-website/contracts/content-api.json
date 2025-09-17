@@ -1,0 +1,497 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Content Management API Contract",
+  "description": "Defines the content structure, validation, and synchronization contracts for the documentation website",
+  "type": "object",
+  "properties": {
+    "contentTypes": {
+      "type": "object",
+      "properties": {
+        "documentationPage": {
+          "$ref": "#/definitions/DocumentationPageSchema"
+        },
+        "tutorialStep": {
+          "$ref": "#/definitions/TutorialStepSchema"
+        },
+        "templateReference": {
+          "$ref": "#/definitions/TemplateReferenceSchema"
+        },
+        "exampleProject": {
+          "$ref": "#/definitions/ExampleProjectSchema"
+        }
+      }
+    },
+    "validationRules": {
+      "$ref": "#/definitions/ValidationRules"
+    },
+    "syncProtocol": {
+      "$ref": "#/definitions/SyncProtocol"
+    }
+  },
+  "definitions": {
+    "DocumentationPageSchema": {
+      "type": "object",
+      "properties": {
+        "frontmatter": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "maxLength": 60,
+              "description": "Page title for SEO and navigation"
+            },
+            "description": {
+              "type": "string",
+              "maxLength": 160,
+              "description": "Meta description for SEO"
+            },
+            "category": {
+              "type": "string",
+              "enum": [
+                "methodology",
+                "getting-started", 
+                "core-concepts",
+                "templates",
+                "workflows",
+                "development",
+                "extensions",
+                "advanced",
+                "examples",
+                "reference"
+              ]
+            },
+            "order": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Display order within category"
+            },
+            "language": {
+              "type": "string",
+              "enum": ["en", "zh", "ja"]
+            },
+            "difficulty": {
+              "type": "string",
+              "enum": ["beginner", "intermediate", "advanced"]
+            },
+            "estimatedReadTime": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 60
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[a-z0-9-]+$"
+              },
+              "description": "Content tags for search and filtering - should include 'SpecKit' for SEO"
+            },
+            "seoKeywords": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Primary SEO keywords including SpecKit and related terms"
+            },
+            "lastModified": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          "required": ["title", "description", "category", "language", "tags"]
+        },
+        "content": {
+          "type": "string",
+          "description": "MDX content body"
+        },
+        "validation": {
+          "type": "object",
+          "properties": {
+            "mdxSyntax": {
+              "type": "boolean",
+              "description": "Valid MDX syntax"
+            },
+            "linkIntegrity": {
+              "type": "boolean",
+              "description": "All links are valid"
+            },
+            "codeExamples": {
+              "type": "boolean",
+              "description": "Code examples are functional"
+            },
+            "accessibility": {
+              "type": "boolean",
+              "description": "Meets WCAG 2.1 AA standards"
+            }
+          }
+        }
+      },
+      "required": ["frontmatter", "content"]
+    },
+    "TutorialStepSchema": {
+      "type": "object",
+      "properties": {
+        "stepId": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "tutorialId": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "stepNumber": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "instructions": {
+          "type": "string",
+          "description": "Step instructions in markdown"
+        },
+        "codeExample": {
+          "type": "object",
+          "properties": {
+            "language": {
+              "type": "string",
+              "enum": ["bash", "javascript", "python", "yaml", "json", "markdown"]
+            },
+            "code": {
+              "type": "string"
+            },
+            "filename": {
+              "type": "string"
+            }
+          }
+        },
+        "expectedOutput": {
+          "type": "string",
+          "description": "Expected result or output"
+        },
+        "validationCriteria": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "estimatedDuration": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 60,
+          "description": "Time to complete step in minutes"
+        }
+      },
+      "required": ["stepId", "tutorialId", "stepNumber", "title", "instructions"]
+    },
+    "TemplateReferenceSchema": {
+      "type": "object",
+      "properties": {
+        "templateId": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "sourceFile": {
+          "type": "string",
+          "description": "Path to template in SpecKit submodule"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "required": {
+                "type": "boolean"
+              },
+              "validationRules": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "executionFlow": {
+          "type": "string",
+          "description": "Template execution logic in markdown"
+        },
+        "customizationPoints": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": ["text", "selection", "boolean", "array"]
+              },
+              "options": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "required": ["templateId", "sourceFile", "version", "name", "description"]
+    },
+    "ExampleProjectSchema": {
+      "type": "object",
+      "properties": {
+        "projectId": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "domain": {
+          "type": "string",
+          "enum": ["web-app", "mobile-app", "api-service", "cli-tool"]
+        },
+        "complexity": {
+          "type": "string",
+          "enum": ["simple", "intermediate", "complex"]
+        },
+        "technologies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sourceCode": {
+          "type": "string",
+          "format": "uri",
+          "description": "Repository URL"
+        },
+        "learningObjectives": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "prerequisites": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "estimatedDuration": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 480,
+          "description": "Time to complete in minutes"
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "stepNumber": {
+                "type": "integer"
+              },
+              "title": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "artifacts": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "required": ["projectId", "name", "description", "domain", "complexity"]
+    },
+    "ValidationRules": {
+      "type": "object",
+      "properties": {
+        "contentQuality": {
+          "type": "object",
+          "properties": {
+            "mdxSyntaxValidation": {
+              "type": "boolean",
+              "default": true
+            },
+            "linkIntegrityCheck": {
+              "type": "boolean",
+              "default": true
+            },
+            "codeExampleTesting": {
+              "type": "boolean",
+              "default": true
+            },
+            "accessibilityCompliance": {
+              "type": "boolean",
+              "default": true
+            },
+            "seoOptimization": {
+              "type": "boolean",
+              "default": true,
+              "description": "Content includes both SpecKit and SpecKit keyword variations"
+            }
+          }
+        },
+        "contentCompleteness": {
+          "type": "object",
+          "properties": {
+            "requiredFrontmatter": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "default": ["title", "description", "category", "language", "tags", "seoKeywords"]
+            },
+            "minimumContentLength": {
+              "type": "integer",
+              "default": 100
+            },
+            "multiLanguageConsistency": {
+              "type": "boolean",
+              "default": true
+            }
+          }
+        },
+        "technicalAccuracy": {
+          "type": "object",
+          "properties": {
+            "specKitAlignment": {
+              "type": "boolean",
+              "default": true
+            },
+            "constitutionalCompliance": {
+              "type": "boolean",
+              "default": true
+            },
+            "versionCompatibility": {
+              "type": "boolean",
+              "default": true
+            },
+            "keywordOptimization": {
+              "type": "boolean",
+              "default": true,
+              "description": "Content strategically includes SpecKit and SpecKit variations for SEO"
+            }
+          }
+        }
+      }
+    },
+    "SyncProtocol": {
+      "type": "object",
+      "properties": {
+        "triggers": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "submodule_update",
+              "manual_trigger",
+              "scheduled_check",
+              "pull_request"
+            ]
+          }
+        },
+        "syncProcess": {
+          "type": "object",
+          "properties": {
+            "detectChanges": {
+              "type": "object",
+              "properties": {
+                "watchedFiles": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "changeDetection": {
+                  "type": "string",
+                  "enum": ["git_diff", "file_hash", "timestamp"]
+                }
+              }
+            },
+            "contentGeneration": {
+              "type": "object",
+              "properties": {
+                "templateMapping": {
+                  "type": "object",
+                  "description": "Maps submodule files to documentation pages"
+                },
+                "automatedUpdates": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "validation": {
+              "type": "object",
+              "properties": {
+                "preDeployment": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "postDeployment": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "conflictResolution": {
+          "type": "object",
+          "properties": {
+            "strategy": {
+              "type": "string",
+              "enum": ["manual_review", "auto_merge", "submodule_priority"]
+            },
+            "notificationChannels": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

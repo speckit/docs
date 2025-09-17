@@ -1,0 +1,450 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Internationalization Contract",
+  "description": "Defines multi-language content structure and translation workflow for the documentation website",
+  "type": "object",
+  "properties": {
+    "supportedLanguages": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Language"
+      }
+    },
+    "contentStructure": {
+      "$ref": "#/definitions/ContentStructure"
+    },
+    "translationWorkflow": {
+      "$ref": "#/definitions/TranslationWorkflow"
+    },
+    "fallbackStrategy": {
+      "$ref": "#/definitions/FallbackStrategy"
+    }
+  },
+  "definitions": {
+    "Language": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "enum": ["en", "zh", "ja"],
+          "description": "ISO 639-1 language code"
+        },
+        "name": {
+          "type": "string",
+          "description": "Language display name"
+        },
+        "nativeName": {
+          "type": "string",
+          "description": "Language name in native script"
+        },
+        "direction": {
+          "type": "string",
+          "enum": ["ltr", "rtl"],
+          "default": "ltr"
+        },
+        "isDefault": {
+          "type": "boolean",
+          "default": false
+        },
+        "completeness": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Translation completion percentage"
+        }
+      },
+      "required": ["code", "name", "nativeName"]
+    },
+    "ContentStructure": {
+      "type": "object",
+      "properties": {
+        "fileOrganization": {
+          "type": "object",
+          "properties": {
+            "defaultLanguage": {
+              "type": "object",
+              "properties": {
+                "location": {
+                  "type": "string",
+                  "default": "root",
+                  "description": "English content in root directories"
+                },
+                "pattern": {
+                  "type": "string",
+                  "default": "{category}/{page}.mdx"
+                }
+              }
+            },
+            "translatedLanguages": {
+              "type": "object",
+              "properties": {
+                "location": {
+                  "type": "string",
+                  "default": "i18n/{language}",
+                  "description": "Translated content in i18n subdirectories"
+                },
+                "pattern": {
+                  "type": "string",
+                  "default": "i18n/{language}/{category}/{page}.mdx"
+                }
+              }
+            }
+          }
+        },
+        "metadataRequirements": {
+          "type": "object",
+          "properties": {
+            "requiredFields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "default": ["title", "description", "language", "seoKeywords"]
+            },
+            "languageSpecificFields": {
+              "type": "object",
+              "properties": {
+                "zh": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "default": ["chineseTitle", "keywords", "seoKeywordsChinese"]
+                },
+                "ja": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "default": ["japaneseTitle", "furigana", "seoKeywordsJapanese"]
+                }
+              }
+            }
+          }
+        },
+        "navigationMapping": {
+          "type": "object",
+          "properties": {
+            "urlStructure": {
+              "type": "string",
+              "enum": ["subdirectory", "subdomain", "parameter"],
+              "default": "subdirectory",
+              "description": "URL structure for language variants"
+            },
+            "pathMapping": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-z]{2}$": {
+                  "type": "object",
+                  "properties": {
+                    "prefix": {
+                      "type": "string"
+                    },
+                    "customPaths": {
+                      "type": "object",
+                      "description": "Custom URL paths for specific pages"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "TranslationWorkflow": {
+      "type": "object",
+      "properties": {
+        "sourceLanguage": {
+          "type": "string",
+          "enum": ["en"],
+          "description": "Source language for all translations"
+        },
+        "translationProcess": {
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+              "enum": ["professional", "community", "hybrid"],
+              "default": "professional"
+            },
+            "qualityAssurance": {
+              "type": "object",
+              "properties": {
+                "technicalReview": {
+                  "type": "boolean",
+                  "default": true,
+                  "description": "Technical accuracy review by native speakers"
+                },
+                "linguisticReview": {
+                  "type": "boolean",
+                  "default": true,
+                  "description": "Language quality and cultural appropriateness"
+                },
+                "consistencyCheck": {
+                  "type": "boolean",
+                  "default": true,
+                  "description": "Terminology and style consistency"
+                }
+              }
+            }
+          }
+        },
+        "updateProcess": {
+          "type": "object",
+          "properties": {
+            "changeDetection": {
+              "type": "object",
+              "properties": {
+                "triggers": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": ["source_content_update", "manual_request", "scheduled_review"]
+                  }
+                },
+                "diffAnalysis": {
+                  "type": "boolean",
+                  "default": true,
+                  "description": "Analyze changes to determine translation impact"
+                }
+              }
+            },
+            "prioritization": {
+              "type": "object",
+              "properties": {
+                "criteria": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": ["user_impact", "content_importance", "change_scope"]
+                  }
+                },
+                "urgencyLevels": {
+                  "type": "object",
+                  "properties": {
+                    "critical": {
+                      "type": "object",
+                      "properties": {
+                        "description": {
+                          "type": "string",
+                          "default": "Breaking changes, security updates"
+                        },
+                        "timeline": {
+                          "type": "string",
+                          "default": "24 hours"
+                        }
+                      }
+                    },
+                    "high": {
+                      "type": "object",
+                      "properties": {
+                        "description": {
+                          "type": "string",
+                          "default": "New features, major content updates"
+                        },
+                        "timeline": {
+                          "type": "string",
+                          "default": "1 week"
+                        }
+                      }
+                    },
+                    "normal": {
+                      "type": "object",
+                      "properties": {
+                        "description": {
+                          "type": "string",
+                          "default": "Content improvements, minor updates"
+                        },
+                        "timeline": {
+                          "type": "string",
+                          "default": "2 weeks"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "communityContribution": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "default": true
+            },
+            "guidelines": {
+              "type": "object",
+              "properties": {
+                "contributionProcess": {
+                  "type": "string",
+                  "description": "Process for community translation contributions"
+                },
+                "reviewRequirements": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "recognitionSystem": {
+                  "type": "object",
+                  "properties": {
+                    "contributorCredits": {
+                      "type": "boolean",
+                      "default": true
+                    },
+                    "qualityBadges": {
+                      "type": "boolean",
+                      "default": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "FallbackStrategy": {
+      "type": "object",
+      "properties": {
+        "missingContent": {
+          "type": "object",
+          "properties": {
+            "strategy": {
+              "type": "string",
+              "enum": ["show_english", "hide_page", "show_placeholder"],
+              "default": "show_english"
+            },
+            "notification": {
+              "type": "object",
+              "properties": {
+                "showBanner": {
+                  "type": "boolean",
+                  "default": true,
+                  "description": "Show notification that content is in English"
+                },
+                "contributionLink": {
+                  "type": "boolean",
+                  "default": true,
+                  "description": "Link to contribute translation"
+                }
+              }
+            }
+          }
+        },
+        "partialTranslation": {
+          "type": "object",
+          "properties": {
+            "strategy": {
+              "type": "string",
+              "enum": ["mixed_content", "english_sections", "placeholder_text"],
+              "default": "mixed_content"
+            },
+            "markingStrategy": {
+              "type": "object",
+              "properties": {
+                "highlightUntranslated": {
+                  "type": "boolean",
+                  "default": true
+                },
+                "showTranslationStatus": {
+                  "type": "boolean",
+                  "default": true
+                }
+              }
+            }
+          }
+        },
+        "outdatedContent": {
+          "type": "object",
+          "properties": {
+            "detectionMethod": {
+              "type": "string",
+              "enum": ["timestamp_comparison", "version_tracking", "content_hash"],
+              "default": "timestamp_comparison"
+            },
+            "userNotification": {
+              "type": "object",
+              "properties": {
+                "showWarning": {
+                  "type": "boolean",
+                  "default": true
+                },
+                "linkToEnglish": {
+                  "type": "boolean",
+                  "default": true
+                },
+                "showLastUpdate": {
+                  "type": "boolean",
+                  "default": true
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "example": {
+    "supportedLanguages": [
+      {
+        "code": "en",
+        "name": "English",
+        "nativeName": "English",
+        "direction": "ltr",
+        "isDefault": true,
+        "completeness": 100
+      },
+      {
+        "code": "zh",
+        "name": "Chinese",
+        "nativeName": "中文",
+        "direction": "ltr",
+        "isDefault": false,
+        "completeness": 85
+      },
+      {
+        "code": "ja",
+        "name": "Japanese",
+        "nativeName": "日本語",
+        "direction": "ltr",
+        "isDefault": false,
+        "completeness": 70
+      }
+    ],
+    "contentStructure": {
+      "fileOrganization": {
+        "defaultLanguage": {
+          "location": "root",
+          "pattern": "{category}/{page}.mdx"
+        },
+        "translatedLanguages": {
+          "location": "i18n/{language}",
+          "pattern": "i18n/{language}/{category}/{page}.mdx"
+        }
+      },
+      "navigationMapping": {
+        "urlStructure": "subdirectory",
+        "pathMapping": {
+          "zh": {
+            "prefix": "/zh",
+            "customPaths": {
+              "getting-started": "入门指南",
+              "methodology": "方法论"
+            }
+          },
+          "ja": {
+            "prefix": "/ja",
+            "customPaths": {
+              "getting-started": "はじめに",
+              "methodology": "方法論"
+            }
+          }
+        }
+      }
+    }
+  }
+}

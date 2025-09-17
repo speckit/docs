@@ -1,0 +1,17 @@
+<svg width="120" height="32" viewBox="0 0 120 32" xmlns="http://www.w3.org/2000/svg">
+  <!-- Simple icon -->
+  <rect x="2" y="6" width="20" height="20" fill="#60A5FA" rx="3"/>
+  <rect x="6" y="10" width="12" height="12" fill="#1F2937" rx="1"/>
+  <line x1="8" y1="13" x2="16" y2="13" stroke="#60A5FA" stroke-width="1"/>
+  <line x1="8" y1="16" x2="16" y2="16" stroke="#60A5FA" stroke-width="1"/>
+  <line x1="8" y1="19" x2="12" y2="19" stroke="#60A5FA" stroke-width="1"/>
+  
+  <!-- Arrow -->
+  <path d="M24 16 L28 16 M26 14 L28 16 L26 18" stroke="#34D399" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  
+  <!-- Code brackets -->
+  <path d="M32 12 L30 16 L32 20 M36 12 L38 16 L36 20" stroke="#FBBF24" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  
+  <!-- Text -->
+  <text x="44" y="22" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="700" fill="#F9FAFB">Speckit</text>
+</svg>

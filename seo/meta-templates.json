@@ -1,0 +1,88 @@
+{
+  "templates": {
+    "default": {
+      "titleTemplate": "{title} | SpecKit: Spec-Driven Development",
+      "descriptionTemplate": "{description} Learn SpecKit methodology for automated documentation and implementation.",
+      "keywords": ["SpecKit", "SpecKit", "spec driven development", "documentation", "automation"]
+    },
+    "getting-started": {
+      "titleTemplate": "{title} - SpecKit Getting Started Guide",
+      "descriptionTemplate": "{description} Start your SpecKit journey with our comprehensive getting started guide.",
+      "keywords": ["SpecKit tutorial", "SpecKit getting started", "installation", "first project"]
+    },
+    "methodology": {
+      "titleTemplate": "{title} - Spec-Kit Methodology | SpecKit",
+      "descriptionTemplate": "{description} Master spec-driven development principles and transform your workflow.",
+      "keywords": ["SpecKit methodology", "SpecKit principles", "spec driven development", "transformation"]
+    },
+    "core-concepts": {
+      "titleTemplate": "{title} - Core Concepts | SpecKit Documentation",
+      "descriptionTemplate": "{description} Deep dive into SpecKit core concepts and executable specifications.",
+      "keywords": ["executable specifications", "SpecKit concepts", "SpecKit planning", "implementation"]
+    },
+    "workflows": {
+      "titleTemplate": "{title} - Spec-Kit Workflows | SpecKit",
+      "descriptionTemplate": "{description} Learn SpecKit command workflows: /specify, /plan, and /tasks.",
+      "keywords": ["SpecKit commands", "SpecKit workflow", "specify command", "plan command", "tasks command"]
+    },
+    "extensions": {
+      "titleTemplate": "{title} - SpecKit Extensions & Automation",
+      "descriptionTemplate": "{description} Enhance your SpecKit workflow with CI/CD, visualization, and automation.",
+      "keywords": ["SpecKit extensions", "SpecKit automation", "CI/CD", "design visualization", "specification by example"]
+    },
+    "development": {
+      "titleTemplate": "{title} - Development Guide | SpecKit",
+      "descriptionTemplate": "{description} Set up your SpecKit development environment and contribute to the project.",
+      "keywords": ["SpecKit development", "SpecKit environment", "contributing", "debugging"]
+    }
+  },
+  "structuredData": {
+    "organization": {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "SpecKit",
+      "url": "https://SpecKit.dev",
+      "logo": "https://SpecKit.dev/logo/light.svg",
+      "sameAs": [
+        "https://github.com/SpecKit",
+        "https://x.com/SpecKit"
+      ]
+    },
+    "software": {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "SpecKit",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Cross-platform",
+      "description": "Spec-driven development toolkit for automated documentation and implementation",
+      "url": "https://SpecKit.dev",
+      "downloadUrl": "https://github.com/SpecKit/SpecKit",
+      "softwareVersion": "1.0.0",
+      "author": {
+        "@type": "Organization",
+        "name": "SpecKit"
+      }
+    }
+  },
+  "openGraph": {
+    "default": {
+      "type": "website",
+      "site_name": "SpecKit Documentation",
+      "image": "/og-image.png",
+      "image:width": "1200",
+      "image:height": "630"
+    },
+    "article": {
+      "type": "article",
+      "site_name": "SpecKit Documentation", 
+      "image": "/og-image-article.png",
+      "image:width": "1200",
+      "image:height": "630"
+    }
+  },
+  "twitter": {
+    "card": "summary_large_image",
+    "site": "@SpecKit",
+    "creator": "@SpecKit"
+  }
+}

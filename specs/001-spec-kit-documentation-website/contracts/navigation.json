@@ -1,0 +1,168 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Documentation Site Navigation Contract",
+  "description": "Defines the navigation structure and relationships for the SpecKit documentation website",
+  "type": "object",
+  "properties": {
+    "navigation": {
+      "type": "object",
+      "properties": {
+        "structure": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NavigationGroup"
+          }
+        },
+        "languages": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["en", "zh", "ja"]
+          }
+        },
+        "defaultLanguage": {
+          "type": "string",
+          "enum": ["en"]
+        }
+      },
+      "required": ["structure", "languages", "defaultLanguage"]
+    }
+  },
+  "definitions": {
+    "NavigationGroup": {
+      "type": "object",
+      "properties": {
+        "group": {
+          "type": "string",
+          "description": "Navigation group name"
+        },
+        "icon": {
+          "type": "string",
+          "description": "Icon identifier for the group"
+        },
+        "order": {
+          "type": "integer",
+          "description": "Display order in navigation"
+        },
+        "pages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NavigationPage"
+          }
+        }
+      },
+      "required": ["group", "pages"]
+    },
+    "NavigationPage": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$",
+          "description": "Unique page identifier"
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 60,
+          "description": "Page title for navigation"
+        },
+        "path": {
+          "type": "string",
+          "pattern": "^[a-z0-9-/]+$",
+          "description": "URL path for the page"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 160,
+          "description": "Page description for SEO - should include SpecKit keywords naturally"
+        },
+        "seoTitle": {
+          "type": "string",
+          "maxLength": 60,
+          "description": "SEO-optimized title including keyword variations"
+        },
+        "difficulty": {
+          "type": "string",
+          "enum": ["beginner", "intermediate", "advanced"]
+        },
+        "estimatedReadTime": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 60,
+          "description": "Estimated reading time in minutes"
+        },
+        "prerequisites": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Required knowledge or completed pages"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NavigationPage"
+          },
+          "description": "Nested pages under this page"
+        }
+      },
+      "required": ["id", "title", "path"]
+    }
+  },
+  "example": {
+    "navigation": {
+      "structure": [
+        {
+          "group": "Methodology",
+          "icon": "lightbulb",
+          "order": 1,
+          "pages": [
+            {
+              "id": "introduction-to-sdd",
+              "title": "Introduction to SDD",
+              "path": "methodology/introduction-to-sdd",
+              "description": "Learn the core philosophy of Spec-Driven Development",
+              "difficulty": "beginner",
+              "estimatedReadTime": 8
+            },
+            {
+              "id": "philosophy-and-principles",
+              "title": "Philosophy and Principles",
+              "path": "methodology/philosophy-and-principles",
+              "description": "Deep dive into SDD principles and constitutional governance",
+              "difficulty": "intermediate",
+              "estimatedReadTime": 12,
+              "prerequisites": ["introduction-to-sdd"]
+            }
+          ]
+        },
+        {
+          "group": "Getting Started",
+          "icon": "rocket",
+          "order": 2,
+          "pages": [
+            {
+              "id": "installation",
+              "title": "Installation",
+              "path": "getting-started/installation",
+              "description": "Install SpecKit and set up your development environment",
+              "difficulty": "beginner",
+              "estimatedReadTime": 5
+            },
+            {
+              "id": "first-project",
+              "title": "Your First Project",
+              "path": "getting-started/first-project",
+              "description": "Complete walkthrough of creating your first SDD project",
+              "difficulty": "beginner",
+              "estimatedReadTime": 15,
+              "prerequisites": ["installation"]
+            }
+          ]
+        }
+      ],
+      "languages": ["en", "zh", "ja"],
+      "defaultLanguage": "en"
+    }
+  }
+}

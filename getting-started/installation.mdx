@@ -1,0 +1,256 @@
+---
+title: "SpecKit Installation Guide: Complete Setup for SpecKit Development"
+description: "Complete installation guide for SpecKit development environment. Set up your spec-driven development toolkit on Windows, macOS, and Linux."
+tags: ["SpecKit", "installation", "setup", "environment"]
+seoKeywords: ["SpecKit installation", "SpecKit setup", "install spec driven development", "SpecKit environment setup"]
+category: "getting-started"
+order: 1
+language: "en"
+difficulty: "beginner"
+estimatedReadTime: 10
+lastModified: "2025-09-14"
+---
+
+# Complete SpecKit Installation Guide
+
+This comprehensive guide will help you set up **SpecKit** development environment on your system. Follow the steps for your operating system to get started with **spec-driven development**.
+
+## TL;DR - Quick Start
+
+If you have Python 3.11+ and just want to get started quickly:
+
+```bash
+# Install uv (if not already installed)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Create a new SpecKit project
+uvx --from git+https://github.com/github/spec-kit.git specify init my-project --ai claude
+```
+
+<Note>
+**What You'll Install**: SpecKit CLI via uvx, Python 3.11+, uv package manager, and AI coding agent integration for a complete spec-driven development environment.
+</Note>
+
+## System Requirements
+
+Before installing **SpecKit**, ensure your system meets these requirements:
+
+<CardGroup cols={3}>
+  <Card title="Python" icon="python">
+    **Version 3.11+** required
+    For uv package manager
+  </Card>
+  <Card title="Git" icon="git-alt">
+    **Version 2.20+** required
+    For repository management
+  </Card>
+  <Card title="AI Agent" icon="robot">
+    **Claude/Copilot/Cursor** required
+    For spec-driven development
+  </Card>
+</CardGroup>
+
+### Supported Operating Systems
+
+- **macOS** 10.15+ (Catalina or later)
+- **Windows** 10/11 (PowerShell or WSL2)
+- **Linux** Ubuntu 18.04+, CentOS 7+, or equivalent
+
+## Step 1: Install Prerequisites
+
+### Python Installation
+
+**Python 3.11+** is required for the uv package manager:
+
+<Tabs>
+  <Tab title="macOS">
+    **Option 1: Using Homebrew (Recommended)**
+    ```bash
+    # Install Homebrew if not already installed
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    
+    # Install Python 3.11+
+    brew install python@3.11
+    ```
+    
+    **Option 2: Using Official Installer**
+    1. Download from [python.org](https://www.python.org/downloads/)
+    2. Run the installer
+    3. Follow the installation wizard
+  </Tab>
+  
+  <Tab title="Windows">
+    **Option 1: Using Official Installer (Recommended)**
+    
+    1. Download from [python.org](https://www.python.org/downloads/)
+    2. Run the installer
+    3. **Important**: Check "Add Python to PATH" during installation
+    
+    **Option 2: Using Chocolatey**
+    ```powershell
+    # Install Chocolatey if not already installed
+    Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+    
+    # Install Python
+    choco install python --version=3.11.0
+    ```
+  </Tab>
+  
+  <Tab title="Linux">
+    **Ubuntu/Debian:**
+    ```bash
+    # Install Python 3.11+
+    sudo apt update
+    sudo apt install python3.11 python3.11-pip
+    ```
+    
+    **CentOS/RHEL:**
+    ```bash
+    # Install Python 3.11+
+    sudo yum install python3.11 python3.11-pip
+    ```
+  </Tab>
+</Tabs>
+
+### Install uv Package Manager
+
+After installing Python, install **uv**:
+
+```bash
+# macOS/Linux
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Windows (PowerShell)
+powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+### Verify Prerequisites
+
+```bash
+python3 --version  # Should show 3.11.0 or higher
+uv --version       # Should show uv version
+```
+
+### Git Installation
+
+<Tabs>
+  <Tab title="macOS">
+    ```bash
+    # Using Homebrew
+    brew install git
+    
+    # Or install Xcode Command Line Tools
+    xcode-select --install
+    ```
+  </Tab>
+  
+  <Tab title="Windows">
+    ```powershell
+    # Using Chocolatey
+    choco install git
+    
+    # Or download from git-scm.com
+    ```
+  </Tab>
+  
+  <Tab title="Linux">
+    ```bash
+    # Ubuntu/Debian
+    sudo apt install git
+    
+    # CentOS/RHEL
+    sudo yum install git
+    ```
+  </Tab>
+</Tabs>
+
+## Step 2: Install SpecKit
+
+### Official Installation Method
+
+The **SpecKit** is available through GitHub's official repository using `uvx`:
+
+<CodeGroup>
+```bash New Project
+# Create a new SpecKit project
+uvx --from git+https://github.com/github/spec-kit.git specify init <PROJECT_NAME>
+```
+
+```bash Existing Project
+# Add SpecKit to current directory
+uvx --from git+https://github.com/github/spec-kit.git specify init --here
+```
+
+```bash With AI Agent
+# Specify your AI agent during initialization
+uvx --from git+https://github.com/github/spec-kit.git specify init my-project --ai claude
+uvx --from git+https://github.com/github/spec-kit.git specify init my-project --ai copilot
+uvx --from git+https://github.com/github/spec-kit.git specify init my-project --ai cursor
+uvx --from git+https://github.com/github/spec-kit.git specify init my-project --ai gemini
+```
+</CodeGroup>
+
+### Verify Spec Kit Installation
+
+After initialization, check that the SpecKit structure was created:
+
+```bash
+## Verify tooling and project files
+
+# Check system tooling
+uvx --from git+https://github.com/github/spec-kit.git specify check
+
+# Check directory structure
+ls -la .specify/
+ls -la .specify/scripts/
+ls -la specs/
+```
+
+You should see the Spec Kit directory structure with scripts and templates.
+
+<Tip>
+**AI Agent Commands**: After setup, your AI coding agent will have `/specify`, `/plan`, and `/tasks` commands available for spec-driven development.
+</Tip>
+
+## Step 3: Verify Installation
+
+### Check Spec Kit Structure
+
+After running the `uvx` command, verify that SpecKit was properly installed:
+
+```bash
+# Check that the .specify directory was created
+ls -la .specify/
+
+# Check that scripts directory has the necessary files
+ls -la .specify/scripts/
+```
+
+You should see:
+- `.specify/scripts/` - Automation scripts for AI agents
+- `.specify/templates/` - Specification templates
+- `CONSTITUTION.md` - Project’s governing principles document
+
+### Test AI Agent Integration
+
+Open your AI coding agent (Claude Code, Cursor, etc.) in the project directory. You should see these commands available:
+
+- **`/specify`** - Create executable specifications
+- **`/plan`** - Generate technical implementation plans  
+- **`/tasks`** - Break down into actionable tasks
+
+<Note>
+**AI Agent Required**: Spec-kit works through AI coding agents. Make sure you have Claude Code, Cursor, GitHub Copilot, or Gemini CLI installed and properly configured.
+</Note>
+
+## Next Steps
+
+Now that you have **SpecKit** installed, you can:
+
+1. **Start a new project**: Follow the [Quickstart Guide](/quickstart)
+2. **Learn the methodology**: Read about [Spec-Driven Development](/methodology/philosophy)
+3. **Explore examples**: Check out the [Core Concepts](/core-concepts/specifications)
+
+<Warning>
+**Important**: The SpecKit methodology requires an AI coding agent to work. Without Claude Code, Cursor, GitHub Copilot, or Gemini CLI, you won't have access to the `/specify`, `/plan`, and `/tasks` commands.
+</Warning>

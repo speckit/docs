@@ -1,0 +1,234 @@
+name: Deploy Spec-Kit Documentation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Sync submodule daily at 2 AM UTC
+    - cron: '0 2 * * *'
+
+jobs:
+  validate:
+    name: Validate Content & SEO
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: |
+          npm ci
+          npm install -g mintlify
+      
+      - name: Validate content contracts
+        run: npm run validate:content
+      
+      - name: Validate SEO optimization
+        run: npm run validate:seo
+      
+      - name: Lint documentation
+        run: npm run lint
+      
+      - name: Build documentation
+        run: mintlify build
+        env:
+          MINTLIFY_API_KEY: ${{ secrets.MINTLIFY_API_KEY }}
+
+  sync-submodule:
+    name: Sync Spec-Kit Submodule
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' || contains(github.event.head_commit.message, '[sync-submodule]')
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          token: ${{ secrets.PAT_TOKEN }}
+      
+      - name: Sync submodule
+        run: |
+          chmod +x scripts/sync-submodule.sh
+          ./scripts/sync-submodule.sh
+        env:
+          CI: true
+      
+      - name: Create Pull Request
+        if: success()
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.PAT_TOKEN }}
+          commit-message: 'chore: sync spec-kit submodule'
+          title: 'Automated Spec-Kit Submodule Update'
+          body: |
+            🤖 **Automated Submodule Update**
+            
+            This PR updates the `external/spec-kit` submodule to the latest version.
+            
+            **Changes:**
+            - Updated spec-kit submodule to latest commit
+            - Automated sync via GitHub Actions
+            
+            **Validation:**
+            - [ ] Content validation passes
+            - [ ] SEO optimization maintained
+            - [ ] Documentation builds successfully
+            
+            This PR was created automatically by the sync workflow.
+          branch: automated/sync-spec-kit
+          delete-branch: true
+
+  deploy:
+    name: Deploy to Mintlify
+    runs-on: ubuntu-latest
+    needs: validate
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: |
+          npm ci
+          npm install -g mintlify
+      
+      - name: Deploy to Mintlify
+        run: mintlify deploy
+        env:
+          MINTLIFY_API_KEY: ${{ secrets.MINTLIFY_API_KEY }}
+      
+      - name: Notify deployment success
+        if: success()
+        run: |
+          echo "✅ Documentation deployed successfully to Mintlify Cloud"
+          echo "🌐 Available at: https://speckit.dev"
+      
+      - name: Notify deployment failure
+        if: failure()
+        run: |
+          echo "❌ Documentation deployment failed"
+          echo "Check the logs above for details"
+
+  accessibility-test:
+    name: Accessibility Testing
+    runs-on: ubuntu-latest
+    needs: validate
+    if: github.event_name == 'pull_request'
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: |
+          npm ci
+          npm install -g mintlify @axe-core/cli
+      
+      - name: Start development server
+        run: |
+          mintlify dev &
+          sleep 30  # Wait for server to start
+      
+      - name: Run accessibility tests
+        run: |
+          axe http://localhost:3000 --exit
+          axe http://localhost:3000/methodology/philosophy --exit
+          axe http://localhost:3000/quickstart --exit
+      
+      - name: Generate accessibility report
+        if: always()
+        run: |
+          echo "Accessibility testing completed"
+          echo "Results available in job logs"
+
+  performance-test:
+    name: Performance Testing
+    runs-on: ubuntu-latest
+    needs: validate
+    if: github.event_name == 'pull_request'
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: |
+          npm ci
+          npm install -g mintlify lighthouse
+      
+      - name: Start development server
+        run: |
+          mintlify dev &
+          sleep 30  # Wait for server to start
+      
+      - name: Run Lighthouse audit
+        run: |
+          lighthouse http://localhost:3000 --output=json --output-path=./lighthouse-report.json --chrome-flags="--headless --no-sandbox"
+      
+      - name: Check performance scores
+        run: |
+          node -e "
+            const report = require('./lighthouse-report.json');
+            const scores = report.lhr.categories;
+            console.log('Performance:', scores.performance.score * 100);
+            console.log('Accessibility:', scores.accessibility.score * 100);
+            console.log('SEO:', scores.seo.score * 100);
+            
+            if (scores.performance.score < 0.9) {
+              console.error('❌ Performance score below 90');
+              process.exit(1);
+            }
+            if (scores.accessibility.score < 0.95) {
+              console.error('❌ Accessibility score below 95');
+              process.exit(1);
+            }
+            if (scores.seo.score < 0.95) {
+              console.error('❌ SEO score below 95');
+              process.exit(1);
+            }
+            console.log('✅ All performance benchmarks met');
+          "
+      
+      - name: Upload Lighthouse report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-report
+          path: lighthouse-report.json

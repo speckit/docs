@@ -1,0 +1,44 @@
+{
+  "navigation": {
+    "groups": {
+      "getting-started": "はじめに",
+      "methodology": "方法論",
+      "core-concepts": "コア概念",
+      "workflows": "ワークフロー", 
+      "extensions": "拡張機能",
+      "development": "開発ガイド"
+    },
+    "pages": {
+      "introduction": "紹介",
+      "getting-started/installation": "インストール",
+      "getting-started/first-project": "最初のプロジェクト",
+      "getting-started/quick-wins": "クイックスタート",
+      "methodology/philosophy": "設計思想",
+      "methodology/principles": "基本原則",
+      "methodology/transformation": "変換プロセス",
+      "methodology/constitution": "ガバナンスモデル",
+      "core-concepts/specifications": "仕様書",
+      "core-concepts/executable-specs": "実行可能仕様",
+      "core-concepts/planning": "計画プロセス",
+      "core-concepts/implementation": "実装プロセス",
+      "workflows/specify-command": "specify コマンド",
+      "workflows/plan-command": "plan コマンド", 
+      "workflows/tasks-command": "tasks コマンド",
+      "workflows/integration-patterns": "統合パターン",
+      "extensions/cicd-automation": "CI/CD 自動化",
+      "extensions/design-visualization": "設計可視化",
+      "extensions/specification-by-example": "実例による仕様",
+      "development/environment-setup": "環境設定",
+      "development/debugging": "デバッグガイド",
+      "development/contributing": "貢献ガイド"
+    }
+  },
+  "common": {
+    "search": "仕様キットドキュメントを検索...",
+    "edit": "このページを編集",
+    "issue": "問題を報告",
+    "feedback": "フィードバック",
+    "next": "次のページ",
+    "previous": "前のページ"
+  }
+}

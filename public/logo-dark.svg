@@ -1,0 +1,20 @@
+<svg width="200" height="60" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle for the icon -->
+  <circle cx="30" cy="30" r="25" fill="#60A5FA" stroke="#93C5FD" stroke-width="2"/>
+  
+  <!-- Spec document icon -->
+  <rect x="20" y="15" width="20" height="25" fill="#1F2937" rx="2"/>
+  <line x1="25" y1="20" x2="35" y2="20" stroke="#60A5FA" stroke-width="1.5"/>
+  <line x1="25" y1="25" x2="35" y2="25" stroke="#60A5FA" stroke-width="1.5"/>
+  <line x1="25" y1="30" x2="30" y2="30" stroke="#60A5FA" stroke-width="1.5"/>
+  
+  <!-- Arrow indicating transformation -->
+  <path d="M45 30 L55 30 M50 25 L55 30 L50 35" stroke="#34D399" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Code brackets -->
+  <path d="M65 20 L60 25 L65 30 M75 20 L80 25 L75 30" stroke="#FBBF24" stroke-width="2" fill="none" stroke-linecap="round"/>
+  
+  <!-- Text -->
+  <text x="90" y="25" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" fill="#F9FAFB">Speckit</text>
+  <text x="90" y="42" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="500" fill="#D1D5DB">Spec-Driven Development</text>
+</svg>

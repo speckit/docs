@@ -1,0 +1,44 @@
+{
+  "navigation": {
+    "groups": {
+      "getting-started": "入门指南",
+      "methodology": "方法论",
+      "core-concepts": "核心概念", 
+      "workflows": "工作流程",
+      "extensions": "扩展功能",
+      "development": "开发指南"
+    },
+    "pages": {
+      "introduction": "介绍",
+      "getting-started/installation": "安装",
+      "getting-started/first-project": "第一个项目",
+      "getting-started/quick-wins": "快速上手",
+      "methodology/philosophy": "设计理念",
+      "methodology/principles": "核心原则",
+      "methodology/transformation": "转换过程",
+      "methodology/constitution": "治理模式",
+      "core-concepts/specifications": "规范文档",
+      "core-concepts/executable-specs": "可执行规范",
+      "core-concepts/planning": "规划过程",
+      "core-concepts/implementation": "实现过程",
+      "workflows/specify-command": "specify 命令",
+      "workflows/plan-command": "plan 命令",
+      "workflows/tasks-command": "tasks 命令",
+      "workflows/integration-patterns": "集成模式",
+      "extensions/cicd-automation": "CI/CD 自动化",
+      "extensions/design-visualization": "设计可视化",
+      "extensions/specification-by-example": "实例规范",
+      "development/environment-setup": "环境配置",
+      "development/debugging": "调试指南",
+      "development/contributing": "贡献指南"
+    }
+  },
+  "common": {
+    "search": "搜索规范工具包文档...",
+    "edit": "编辑此页",
+    "issue": "报告问题",
+    "feedback": "反馈",
+    "next": "下一页",
+    "previous": "上一页"
+  }
+}
