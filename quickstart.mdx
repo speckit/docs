@@ -1,91 +1,369 @@
 ---
-title: 'Quickstart'
-description: 'Start building awesome documentation in under 5 minutes'
+title: "SpecKit Quickstart: Get Started with SpecKit in 5 Minutes"
+description: "Start your spec-driven development journey with SpecKit. Learn SpecKit basics and create your first executable specification in under 5 minutes."
+tags: ["SpecKit", "quickstart", "getting-started", "tutorial"]
+seoKeywords: ["SpecKit quickstart", "SpecKit tutorial", "spec driven development tutorial", "getting started with SpecKit"]
+category: "getting-started"
+order: 1
+language: "en"
+difficulty: "beginner"
+estimatedReadTime: 5
+lastModified: "2025-09-14"
 ---
 
-## Setup your development
+# Get Started with SpecKit in 5 Minutes
 
-Learn how to update your docs locally and deploy them to the public.
+Welcome to **spec-driven development**! This quickstart guide will have you creating executable specifications with **SpecKit** methodology in under 5 minutes.
 
-### Edit and preview
+<Note>
+**What You'll Learn**: How to write your first executable specification, generate an implementation plan, and experience the transformation from documentation to working code.
+</Note>
 
-<AccordionGroup>
-  <Accordion icon="github" title="Clone your docs locally">
-    During the onboarding process, we created a repository on your Github with
-    your docs content. You can find this repository on our
-    [dashboard](https://dashboard.speckit.dev). To clone the repository
-    locally, follow these steps:
+## Prerequisites
 
-    <CodeGroup>
-      ```bash Terminal
-      git clone https://github.com/speckit/docs
-      cd docs
-      ```
-    </CodeGroup>
-  </Accordion>
+Before we begin, make sure you have:
 
-  <Accordion icon="rectangle-terminal" title="Preview changes">
-    Preview changes before pushing to Git. We highly recommend installing the
-    Mintlify CLI.
+- **Python 3.11+**
+- **uv** package manager
+- **Git** for version control
+- A **text editor** (VS Code recommended)
+- **5 minutes** of focused time
 
-    <CodeGroup>
-      ```bash npm
-      npm i -g mintlify
-      mintlify dev
-      ```
+## Step 1: Install Spec Kit
 
-      ```bash yarn
-      yarn global add mintlify
-      mintlify dev
-      ```
-    </CodeGroup>
-  </Accordion>
-</AccordionGroup>
+The Spec Kit templates are installed via the `specify` CLI using `uvx`:
 
-### Deploy your changes
+<Note>
+**Prerequisites**: You need Python 3.11+, Git, and [uv](https://docs.astral.sh/uv/) package manager installed.
+</Note>
 
-<AccordionGroup>
-  <Accordion icon="message-bot" title="Install our Github app">
-    Our Github app automatically deploys your changes to your docs site, so you
-    don't need to manage deployments yourself. You can find the link to install on
-    your [dashboard](https://dashboard.speckit.dev). Once the bot has been
-    successfully installed, you should see a check mark next to the commit hash of
-    the repo.
-  </Accordion>
-  <Accordion icon="rocket" title="Push your changes">
-    <CodeGroup>
-      ```bash Terminal
-      git add .
-      git commit -m "Update docs"
-      git push origin main
-      ```
-    </CodeGroup>
-  </Accordion>
-</AccordionGroup>
+### For New Projects
 
-## Update your docs
+```bash
+# Create a new SpecKit project
+uvx --from git+https://github.com/github/spec-kit.git specify init my-first-spec-project
+```
 
-Add content directly in your files with MDX syntax and React components. You can use any of our components, or even build your own.
+### For Existing Projects
 
-<CardGroup>
-  <Card title="Style Your Docs" icon="paintbrush" href="/essentials/settings">
-    Add flair to your docs with personalized branding.
+```bash
+# Add SpecKit to current directory
+uvx --from git+https://github.com/github/spec-kit.git specify init --here
+```
+
+<Tip>
+**Pro Tip**: Use `specify check` to verify local tooling. The `/specify`, `/plan`, and `/tasks` commands are surfaced by your AI coding agent.
+</Tip>
+
+### Choose Script Type (optional)
+
+All automation scripts have both Bash (`.sh`) and PowerShell (`.ps1`) variants. You can force one with `--script`:
+
+```bash
+uvx --from git+https://github.com/github/spec-kit.git specify init my-project --script sh  # POSIX shells
+uvx --from git+https://github.com/github/spec-kit.git specify init my-project --script ps  # PowerShell
+```
+
+## Step 2: Configure AI Agent
+
+The **SpecKit** initialization will prompt you to select your AI coding agent. You can also specify it directly:
+
+<Tabs>
+  <Tab title="Claude Code">
+    ```bash
+    uvx --from git+https://github.com/github/spec-kit.git specify init my-project --ai claude
+    ```
+    
+    Requires [Claude Code](https://www.anthropic.com/claude-code) to be installed.
+  </Tab>
+  
+  <Tab title="GitHub Copilot">
+    ```bash
+    uvx --from git+https://github.com/github/spec-kit.git specify init my-project --ai copilot
+    ```
+    
+    Works with [GitHub Copilot](https://code.visualstudio.com/) in VS Code.
+  </Tab>
+  
+  <Tab title="Cursor">
+    ```bash
+    uvx --from git+https://github.com/github/spec-kit.git specify init my-project --ai cursor
+    ```
+    
+    Integrates with [Cursor](https://cursor.sh/) AI coding environment.
+  </Tab>
+  
+  <Tab title="Gemini">
+    ```bash
+    uvx --from git+https://github.com/github/spec-kit.git specify init my-project --ai gemini
+    ```
+    
+    Requires [Gemini CLI](https://github.com/google-gemini/gemini-cli) to be installed.
+  </Tab>
+</Tabs>
+
+This creates the essential Spec Kit structure:
+
+```
+my-first-spec-project/
+├── .specify/
+│   ├── scripts/
+│   └── templates/
+├── specs/
+└── CONSTITUTION.md
+```
+
+## Step 3: Use the /specify Command
+
+Open your AI coding agent (Claude Code, Cursor, etc.) in the project directory. You should see the `/specify`, `/plan`, and `/tasks` commands available.
+
+Use the **`/specify`** command to create your first specification:
+
+<Tabs>
+  <Tab title="Claude Code Example">
+    ```text
+    /specify Build a user registration system that allows new users to create accounts with email and password. The system should validate email formats, enforce password complexity rules, prevent duplicate email addresses, and send confirmation emails after successful registration.
+    ```
+    
+    Claude Code will automatically:
+    1. Create a new branch (e.g., `001-user-registration`)
+    2. Generate `specs/001-user-registration/spec.md`
+    3. Include user stories and functional requirements
+  </Tab>
+  
+  <Tab title="Manual Specification">
+    If not using an AI agent, create the specification manually:
+    
+    ```markdown
+    # User Registration Feature
+    
+    ## User Stories
+    - As a new user, I want to create an account with email and password
+    - As a user, I want my password to be secure and validated
+    - As a system, I want to prevent duplicate email registrations
+    
+    ## Functional Requirements
+    - **FR-001**: System MUST validate email format
+    - **FR-002**: System MUST enforce password complexity rules
+    - **FR-003**: System MUST prevent duplicate email addresses
+    - **FR-004**: System MUST send confirmation email after registration
+    
+    ## Acceptance Criteria
+    - Valid email formats are accepted
+    - Passwords must be 8+ characters with mixed case and numbers
+    - Duplicate emails return appropriate error message
+    - Confirmation email is sent within 30 seconds
+    ```
+  </Tab>
+</Tabs>
+
+## Step 4: Generate Implementation Plan
+
+Use the **`/plan`** command to create a technical implementation plan:
+
+```text
+/plan The application uses Node.js with Express framework, PostgreSQL database for user storage, bcrypt for password hashing, and SendGrid for email delivery. The frontend should be a simple HTML/CSS/JavaScript interface with form validation.
+```
+
+This will automatically generate:
+
+- **Technical architecture** decisions
+- **Implementation phases** and milestones  
+- **Technology recommendations**
+- **Risk assessment** and mitigation strategies
+
+<Accordion title="Example Generated Plan">
+```markdown
+# Implementation Plan: User Registration Feature
+
+## Technical Architecture
+- **Backend**: Node.js with Express
+- **Database**: PostgreSQL with user table
+- **Validation**: Joi schema validation
+- **Email**: SendGrid integration
+- **Security**: bcrypt password hashing
+
+## Implementation Phases
+### Phase 1: Core Registration (Week 1)
+- Database schema creation
+- User model implementation
+- Basic registration endpoint
+
+### Phase 2: Validation & Security (Week 1)
+- Email format validation
+- Password complexity rules
+- Duplicate email prevention
+
+### Phase 3: Email Integration (Week 2)
+- SendGrid configuration
+- Confirmation email templates
+- Email sending workflow
+```
+</Accordion>
+
+## Step 5: Generate Task Breakdown
+
+Use the **`/tasks`** command to break down the plan into actionable tasks:
+
+```text
+/tasks
+```
+
+This will automatically create `specs/001-user-registration/tasks.md` with specific, assignable tasks:
+
+<Steps>
+  <Step title="Database Setup">
+    - Create user table schema
+    - Set up database migrations
+    - Configure connection pooling
+  </Step>
+  
+  <Step title="API Implementation">
+    - Implement POST /register endpoint
+    - Add input validation middleware
+    - Create user service layer
+  </Step>
+  
+  <Step title="Security Implementation">
+    - Add password hashing
+    - Implement rate limiting
+    - Add CSRF protection
+  </Step>
+  
+  <Step title="Email Integration">
+    - Configure SendGrid API
+    - Create email templates
+    - Implement confirmation workflow
+  </Step>
+</Steps>
+
+## Step 6: Experience the Transformation
+
+You've just experienced the core **SpecKit** transformation:
+
+```mermaid
+graph LR
+    A[Specification] --> B[/plan Command]
+    B --> C[Implementation Plan]
+    C --> D[/tasks Command]
+    D --> E[Actionable Tasks]
+    E --> F[Ready for Development]
+```
+
+<CardGroup cols={3}>
+  <Card title="From Idea" icon="lightbulb">
+    Started with a simple feature idea
   </Card>
-  <Card
-    title="Add API Endpoints"
-    icon="square-code"
-    href="/api-reference/introduction"
-  >
-    Implement your OpenAPI spec and enable API user interaction.
+  <Card title="To Specification" icon="file-text">
+    Created executable specification
   </Card>
-  <Card
-    title="Integrate Analytics"
-    icon="chart-mixed"
-    href="/essentials/analytics"
-  >
-    Draw insights from user interactions with your documentation.
-  </Card>
-  <Card title="Host on a Subdomain" icon="globe" href="/essentials/subdomain">
-    Keep your docs on your own website's subdomain.
+  <Card title="To Implementation" icon="code">
+    Generated detailed implementation plan
   </Card>
 </CardGroup>
+
+## What Just Happened?
+
+In 5 minutes, you've experienced the power of **spec-driven development**:
+
+1. **Executable Specifications**: Your spec isn't just documentation—it's a contract
+2. **Automated Planning**: AI analyzed your spec and generated implementation strategy
+3. **Task Generation**: Detailed tasks were created automatically from your plan
+4. **Constitutional Governance**: Quality rules were applied throughout the process
+
+## Next Steps
+
+<AccordionGroup>
+  <Accordion title="Explore the Methodology">
+    Dive deeper into [spec-driven development philosophy](/methodology/philosophy) and understand the principles behind **SpecKit**.
+  </Accordion>
+  
+  <Accordion title="Learn Core Concepts">
+    Master [executable specifications](/core-concepts/specifications) and [implementation planning](/core-concepts/planning).
+  </Accordion>
+  
+  <Accordion title="Try Advanced Features">
+    Explore [extensions](/extensions/cicd-automation) like CI/CD automation and design visualization.
+  </Accordion>
+  
+  <Accordion title="Join the Community">
+    Connect with other Spec Kit practitioners by opening an issue on [github/spec-kit](https://github.com/github/spec-kit/issues).
+  </Accordion>
+</AccordionGroup>
+
+## Common First Questions
+
+<Tabs>
+  <Tab title="How is this different?">
+    **Traditional development** translates requirements into code manually, introducing errors and drift.
+    
+    **SpecKit** transforms specifications into implementation automatically, maintaining perfect alignment.
+  </Tab>
+  
+  <Tab title="What about existing projects?">
+    You can adopt **SpecKit** incrementally:
+    1. Start with new features using specifications
+    2. Gradually add constitutional governance
+    3. Introduce automation over time
+  </Tab>
+  
+  <Tab title="Does it replace developers?">
+    No! **Spec Kit** amplifies developer capabilities by:
+    - Eliminating repetitive planning tasks
+    - Reducing documentation maintenance
+    - Preventing specification drift
+    - Allowing focus on creative problem-solving
+  </Tab>
+</Tabs>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="uvx command not found">
+    **Issue**: `uvx` command is not available.
+    
+    **Solution**: Install uv package manager first:
+    ```bash
+    # macOS/Linux
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+    
+    # Windows (PowerShell)
+    powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+    ```
+  </Accordion>
+  
+  <Accordion title="AI agent commands not available">
+    **Issue**: `/specify`, `/plan`, `/tasks` commands not showing in AI agent.
+    
+    **Solution**: Ensure you're in the correct directory and the AI agent is properly configured:
+    ```bash
+    # Check if spec-kit files exist
+    ls -la .specify/
+    ls -la CLAUDE.md  # or your agent's file
+    
+    # Restart your AI coding agent
+    ```
+  </Accordion>
+  
+  <Accordion title="Python version issues">
+    **Issue**: Python 3.11+ is required but not available.
+    
+    **Solution**: Install the correct Python version:
+    ```bash
+    # macOS (Homebrew)
+    brew install python@3.11
+    
+    # Ubuntu/Debian
+    sudo apt install python3.11
+    
+    # Verify version
+    python3 --version
+    ```
+  </Accordion>
+</AccordionGroup>
+
+---
+
+🎉 **Congratulations!** You've completed your first **spec-kit** transformation. You're now ready to explore the full power of **spec-driven development**.
+
+**What's Next?** Try the [installation guide](/getting-started/installation) for a complete development environment setup, or dive into [your first project](/getting-started/first-project) tutorial.

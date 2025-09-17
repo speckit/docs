@@ -1,90 +1,145 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Speckit Documentation",
+  "name": "SpecKit: Spec-Driven Development",
   "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "light": "/images/logo/light.svg",
+    "dark": "/images/logo/dark.svg",
+    "href": "/"
   },
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
+    "primary": "#2563eb",
+    "light": "#3b82f6",
+    "dark": "#1d4ed8",
     "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
+      "from": "#2563eb",
+      "to": "#3b82f6"
     }
   },
   "topbarLinks": [
     {
-      "name": "Support",
-      "url": "mailto:support@speckit.dev"
+      "name": "GitHub",
+      "url": "https://github.com/github/spec-kit"
     }
   ],
   "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.speckit.dev"
+    "name": "Get Started",
+    "url": "/quickstart"
   },
   "tabs": [
     {
-      "name": "API Reference",
-      "url": "api-reference"
+      "name": "Examples",
+      "url": "examples"
+    },
+    {
+      "name": "Templates",
+      "url": "templates"
+    },
+    {
+      "name": "Reference",
+      "url": "reference"
     }
   ],
   "anchors": [
     {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
+      "name": "GitHub SpecKit",
+      "icon": "github",
+      "url": "https://github.com/github/spec-kit"
     },
     {
       "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
+      "icon": "users",
+      "url": "https://github.com/github/spec-kit"
     },
     {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
+      "name": "Issues",
+      "icon": "bug",
+      "url": "https://github.com/github/spec-kit/issues"
     }
   ],
   "navigation": [
     {
-      "group": "Get Started",
+      "group": "Getting Started",
       "pages": [
         "introduction",
-        "quickstart",
-        "development"
+        "getting-started/installation",
+        "getting-started/first-project",
+        "getting-started/quick-wins"
       ]
     },
     {
-      "group": "Essentials",
+      "group": "Methodology",
       "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation"
+        "methodology/philosophy",
+        "methodology/principles",
+        "methodology/transformation",
+        "methodology/constitution"
       ]
     },
     {
-      "group": "API Documentation",
+      "group": "Core Concepts",
       "pages": [
-        "api-reference/introduction"
+        "core-concepts/specifications",
+        "core-concepts/executable-specs",
+        "core-concepts/planning",
+        "core-concepts/implementation"
       ]
     },
     {
-      "group": "Endpoint Examples",
+      "group": "Workflows",
       "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        "workflows/specify-command",
+        "workflows/plan-command", 
+        "workflows/tasks-command",
+        "workflows/integration-patterns"
+      ]
+    },
+    {
+      "group": "Extensions",
+      "pages": [
+        "extensions/cicd-automation",
+        "extensions/design-visualization",
+        "extensions/specification-by-example"
+      ]
+    },
+    {
+      "group": "Development",
+      "pages": [
+        "development/environment-setup",
+        "development/debugging",
+        "development/contributing"
       ]
     }
   ],
   "footerSocials": {
     "x": "https://x.com/speckit",
-    "github": "https://github.com/speckit",
+    "github": "https://github.com/github/spec-kit",
     "linkedin": "https://www.linkedin.com/company/speckit"
-  }
+  },
+  "analytics": {
+    "ga4": {
+      "measurementId": "G-XXXXXXXXXX"
+    }
+  },
+  "seo": {
+    "indexHiddenPages": false
+  },
+  "feedback": {
+    "thumbsRating": true,
+    "suggestEdit": true,
+    "raiseIssue": true
+  },
+  "search": {
+    "prompt": "Search SpecKit documentation..."
+  },
+  "ignore": [
+    ".specify/**",
+    ".specify/**/*",
+    "external/**/*",
+    "specs/**/*",
+    "scripts/**/*",
+    "templates/**/*",
+    "RESEARCH_FINDINGS.md",
+    "SPEC_KIT_DOCUMENTATION_PLAN.md"
+  ]
 }

@@ -7,6 +7,9 @@ yarn-error.log*
 # Mintlify
 .mintlify/
 
+# SpecKit internal files
+.specify/
+
 # Environment variables
 .env
 .env.local
